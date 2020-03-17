@@ -1,7 +1,7 @@
 # Etsy Listing Fetcher for NodeJS
 
-A simple NodeJS package to make calls to the
-  [Etsy API](https://www.etsy.com/developers/documentation)
+Use the [Etsy API](https://www.etsy.com/developers/documentation) with NodeJS
+  to fetch listings
 
 ### Prerequisites
 

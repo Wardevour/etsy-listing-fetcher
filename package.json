@@ -1,7 +1,7 @@
 {
   "name": "etsy-listing-fetcher",
   "version": "1.0.0",
-  "description": "Use the Etsy api with node-fetch",
+  "description": "Use the Etsy api with NodeJS to fetch listings",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
