@@ -1,0 +1,23 @@
+{
+  "name": "etsy-listing-fetcher",
+  "version": "1.0.0",
+  "description": "Use the Etsy api with node-fetch",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "kbrockert",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wardevour/etsy-listing-fetcher.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^6.2.0",
+    "mocha": "^6.2.2"
+  }
+}
