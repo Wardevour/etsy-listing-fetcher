@@ -5,13 +5,15 @@ if (process.env.NODE_ENV != 'production') {
     require('dotenv').config();
 }
 
-// prepare needed data for making requests
 const ETSY_API_KEY = process.env.ETSY_API_KEY;
 const ETSY_SHOP_ID = process.env.ETSY_SHOP_ID;
 const baseUrl = 'https://openapi.etsy.com/v2/';
-const listings = require('./lib/listings');
+const Listings = require('./lib/listings');
 
 module.exports = class Etsy {
+    /**
+     * Initilize listing fetcher.
+     */
     constructor() {
         this.options = {
             baseUrl: baseUrl,
@@ -20,7 +22,6 @@ module.exports = class Etsy {
             shopId: ETSY_SHOP_ID
         };
 
-        this.listings = listings;
-        this.listings.init(this.options);
+        this.listings = new Listings(this.options);
     }
 }
