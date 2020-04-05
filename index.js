@@ -14,6 +14,7 @@ const ETSY_BASE_URL = 'https://openapi.etsy.com/v2/';
 const Listings = require('./lib/listings');
 const InactiveListings = require('./lib/inactive-listings');
 const ExpiredListings = require('./lib/expired-listings');
+const DraftListings = require('./lib/draft-listings');
 
 module.exports = class Etsy {
     /**
@@ -33,5 +34,6 @@ module.exports = class Etsy {
         this.listings = new Listings(this.options);
         this.inactiveListings = new InactiveListings(this.options);
         this.expiredListings = new ExpiredListings(this.options);
+        this.draftListings = new DraftListings(this.options);
     }
 }
