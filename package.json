@@ -13,7 +13,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "oauth": "^0.9.15"
   },
   "devDependencies": {
     "chai": "^4.2.0",
