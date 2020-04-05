@@ -5,13 +5,18 @@ Use the [Etsy API](https://www.etsy.com/developers/documentation) with NodeJS
 
 ### Prerequisites
 
-* [NodeJS](https://nodejs.org), which will come with
-  npm.
+* [NodeJS](https://nodejs.org) - Comes with npm
 * [Git](https://git-scm.com)
-* An ETSY_API_KEY.
+* ETSY_API_KEY -
   [Register you app with Etsy](https://www.etsy.com/developers/register) and
-  your ETSY_API_KEY is your app's KEYSTRING.
-* An ETSY_SHOP_ID. A shop id is the referring_id in an Etsy shop's contact URL
+  your ETSY_API_KEY is your app's KEYSTRING
+* ETSY_SHOP_ID - A shop id is the referring_id in an Etsy shop's contact URL
+* [ETSY_API_SECRET] - This is your Etsy app's SHARED SECRET and is only
+  required to get expired or inactive Listings
+* [ETSY_ACCESS_TOKEN] - This is your Etsy app's access_token and is only
+  required to get expired or inactive Listings
+* [ETSY_ACCESS_TOKEN_SECRET] - This is your Etsy app's access_token's secret
+  and is only required to get expired or inactive Listings
 
 ### Installing
 
@@ -36,8 +41,7 @@ npm install
 ```
 
 Finally, you'll need to set some environment variables.
-  You can do this with dotenv using a `.env` file containing your ETSY_API_KEY
-  and ETSY_SHOP_ID.
+  You can do this with dotenv using a `.env` file.
 
 The following is an example creating the `.env` file:
 
@@ -45,6 +49,9 @@ The following is an example creating the `.env` file:
 touch .env
 echo "ETSY_API_KEY=XXXXXXXXXXX" >> .env
 echo "ETSY_SHOP_ID=XXXXXXXXXXX" >> .env
+echo "ETSY_API_SECRET=XXXXXXXXXXX" >> .env
+echo "ETSY_ACCESS_TOKEN=XXXXXXXXXXX" >> .env
+echo "ETSY_ACCESS_TOKEN_SECRET=XXXXXXXXXXX" >> .env
 ```
 
 ### Running tests
@@ -66,6 +73,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE)
 
 * NodeJS
 * node-fetch
+* node-oauth
 * dotenv
 * mocha
 * chai
