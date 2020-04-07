@@ -15,6 +15,7 @@ const Listings = require('./lib/listings');
 const InactiveListings = require('./lib/inactive-listings');
 const ExpiredListings = require('./lib/expired-listings');
 const DraftListings = require('./lib/draft-listings');
+const ListingImages = require('./lib/listing-images');
 
 module.exports = class Etsy {
     /**
@@ -35,5 +36,6 @@ module.exports = class Etsy {
         this.inactiveListings = new InactiveListings(this.options);
         this.expiredListings = new ExpiredListings(this.options);
         this.draftListings = new DraftListings(this.options);
+        this.listingImages = new ListingImages(this.options);
     }
 }
