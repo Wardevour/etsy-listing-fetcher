@@ -107,7 +107,7 @@ fetchAll().then((data) => {
 
         for (let j = 0; j < imgs.length; j++) {
             let obj = Object.assign({}, imgRow);
-            obj.MainImage = "'" + imgs[j].url_fullxfull + "'";
+            obj.Images = '"' + imgs[j].url_fullxfull + '"';
             rows.push(Object.values(obj).join(','));
         }
     }
