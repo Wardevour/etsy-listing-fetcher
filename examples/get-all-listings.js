@@ -93,7 +93,7 @@ fetchAll().then((data) => {
                 } else if (property == 'Images') {
                     // the first image is the main image
                     imgs = imgs.concat(row[property].slice(1));
-                    value = row[property].url_fullxfull;
+                    value = row[property][0].url_fullxfull;
                 }
 
                 // wrap values in quotes
