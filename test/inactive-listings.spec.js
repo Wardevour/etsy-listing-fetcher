@@ -18,12 +18,10 @@ describe('etsy.inactiveListings', function() {
             it('should create output/inactive-listings.json', function(done) {
                 this.timeout(5000);
 
-                etsy.inactiveListings.get().then((response) => {
-                    return response.text();
-                }).then((text) => {
+                etsy.inactiveListings.get().then((data) => {
                   let fileName = 'output' + path.sep + 'inactive-listings.json';
 
-                  fs.writeFileSync(fileName, text, 'utf-8');
+                  fs.writeFileSync(fileName, JSON.stringify(data), 'utf-8');
                   done();
                 }).catch(done);
             });

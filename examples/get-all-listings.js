@@ -5,18 +5,33 @@ const path = require('path');
 const sleep = require('../lib/helpers').sleep;
 const Etsy = require('../index');
 
+const methods = [
+    'listings',
+    'draftListings',
+    'inactiveListings',
+    'expiredListings'
+];
+
 let etsy = new Etsy();
 
-const fetch = function fetch() {
+const fetch = function fetch(methodIndex) {
     let rows = [];
     let options = {
+        'includes': 'Images',
+        'fields': 'listing_id,state,title,description,price,quantity,'
+            + 'category_path,non_taxable',
         'limit': 100,
         'offset': 0
     };
 
+    let method = methods[methodIndex];
     let recursive = () => {
-        return etsy.listings.get(options).then((response) => {
-            return response.json();
+        return etsy[method].get(options).then((response) => {
+            if (method == 'listings') {
+                return response.json();
+            }
+
+            return response;
         }).then((data) => {
             rows = rows.concat(data.results);
             if (rows.length < data.count) {
@@ -34,19 +49,67 @@ const fetch = function fetch() {
     return recursive();
 };
 
-fetch().then((data) => {
+const fetchAll = function fetchAll() {
+    let allRows = [];
+    let currentIndex = 0;
+
+    let recursive = () => {
+        return fetch(currentIndex).then((data) => {
+            allRows = allRows.concat(data);
+
+            if (currentIndex + 1 < methods.length) {
+                currentIndex++;
+                return recursive();
+            } else {
+                return new Promise((resolve, reject) => {
+                    resolve(allRows);
+                });
+            }
+        })
+    };
+
+    return recursive();
+};
+
+fetchAll().then((data) => {
+    let pattern = new RegExp('<[^>]*>', 'g');
+
     let rows = [];
     rows[0] = Object.keys(data[0]).join(',');
 
     for (let i = 1; i < data.length; i++) {
-        let values = Object.values(data[i]);
+        let imgs = [];
+        let imgRow = {};
 
-        // wrap values in single quotes
-        values = values.map((val) => {
-            return "'" + val + "'";
-        });
+        let row = data[i];
+        for (let property in row) {
+            if (row.hasOwnProperty(property)) {
+                imgRow[property] = '';
 
-        rows[i] = values.join(',');
+                let value = row[property] + '';
+                if (property == 'description') {
+                    // strip html from descriptions
+                    value = value.replace(pattern, '');
+                } else if (property == 'Images') {
+                    // the first image is the main image
+                    imgs = imgs.concat(row[property].slice(1));
+                    value = row[property].url_fullxfull;
+                }
+
+                // wrap values in quotes
+                value = '"' + value + '"';
+                row[property] = value;
+            }
+        }
+
+        imgRow.listing_id = row.listing_id;
+        rows.push(Object.values(row).join(','));
+
+        for (let j = 0; j < imgs.length; j++) {
+            let obj = Object.assign({}, imgRow);
+            obj.MainImage = "'" + imgs[j].url_fullxfull + "'";
+            rows.push(Object.values(obj).join(','));
+        }
     }
 
     // write the csv file

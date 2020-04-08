@@ -18,12 +18,10 @@ describe('Etsy.expiredListings', function() {
             it('should create output/expired-listings.json', function(done) {
                 this.timeout(5000);
 
-                etsy.expiredListings.get().then((response) => {
-                    return response.text();
-                }).then((text) => {
+                etsy.expiredListings.get().then((data) => {
                   let fileName = 'output' + path.sep + 'expired-listings.json';
 
-                  fs.writeFileSync(fileName, text, 'utf-8');
+                  fs.writeFileSync(fileName, JSON.stringify(data), 'utf-8');
                   done();
                 }).catch(done);
             });

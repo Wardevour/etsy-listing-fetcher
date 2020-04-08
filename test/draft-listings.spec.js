@@ -18,12 +18,10 @@ describe('etsy.draftListings', function() {
             it('should create output/draft-listings.json', function(done) {
                 this.timeout(5000);
 
-                etsy.draftListings.get().then((response) => {
-                    return response.text();
-                }).then((text) => {
+                etsy.draftListings.get().then((data) => {
                   let fileName = 'output' + path.sep + 'draft-listings.json';
 
-                  fs.writeFileSync(fileName, text, 'utf-8');
+                  fs.writeFileSync(fileName, JSON.stringify(data), 'utf-8');
                   done();
                 }).catch(done);
             });
