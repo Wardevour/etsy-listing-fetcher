@@ -16,8 +16,8 @@ const fetch = function fetch() {
 
     let recursive = () => {
         return etsy.inactiveListings.get(options).then((data) => {
-            if (data.results.length > 0) {
-                rows = rows.concat(data.results);
+            rows = rows.concat(data.results);
+            if (rows.length < data.count) {
                 options.offset += options.limit;
                 // 5 per second 5000 per day
                 return sleep(200).then(recursive);

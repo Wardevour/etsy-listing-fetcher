@@ -10,7 +10,7 @@ let etsy = new Etsy();
 const fetch = function fetch() {
     let rows = [];
     let options = {
-        'listingId': 779512412,
+        'listingId': 502402726,
         'limit': 100,
         'offset': 0
     };
@@ -19,8 +19,8 @@ const fetch = function fetch() {
         return etsy.listingImages.get(options).then((response) => {
             return response.json();
         }).then((data) => {
-            if (data.results.length > 0) {
-                rows = rows.concat(data.results);
+            rows = rows.concat(data.results);
+            if (rows.length < data.count) {
                 options.offset += options.limit;
                 // 5 per second 5000 per day
                 return sleep(200).then(recursive);
