@@ -5,7 +5,7 @@ const path = require('path');
 const sleep = require('../lib/helpers').sleep;
 const Etsy = require('../index');
 
-const methods = [
+const classes = [
     'listings',
     'draftListings',
     'inactiveListings',
@@ -18,15 +18,23 @@ const fetch = function fetch(methodIndex) {
     let rows = [];
     let options = {
         'includes': 'Images',
-        'fields': 'listing_id,state,title,description,price,quantity,'
-            + 'category_path,non_taxable',
+        'fields': [
+            'listing_id',
+            'state',
+            'title',
+            'description',
+            'price',
+            'quantity',
+            'category_path',
+            'non_taxable'
+        ],
         'limit': 100,
         'offset': 0
     };
 
-    let method = methods[methodIndex];
+    let className = classes[methodIndex];
     let recursive = () => {
-        return etsy[method].get(options).then((response) => {
+        return etsy[className].get(options).then((response) => {
             if (method == 'listings') {
                 return response.json();
             }
